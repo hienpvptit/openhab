@@ -1,0 +1,135 @@
+import org.openhab.model.script.actions.*
+import org.openhab.core.library.types.*
+import java.util.*
+
+val red = new HSBType(new DecimalType(0),new PercentType(100),new PercentType(50))
+
+val green = new HSBType(new DecimalType(120),new PercentType(100),new PercentType(50))
+
+val blue = new HSBType(new DecimalType(240),new PercentType(100),new PercentType(50))
+
+val white = new HSBType(new DecimalType(0),new PercentType(0),new PercentType(100))
+
+val black = new HSBType(new DecimalType(0),new PercentType(0),new PercentType(0))
+
+rule "voiceControl"
+	when
+		Item VoiceCommand received command
+	then
+		var command = receivedCommand.toString.toLowerCase
+		var str= ""
+		for(var i=0;i<command.length;i++)
+		{
+			var tmp = command.charAt(i)
+			var t = tmp.toString
+			if(t=='a' || t=='á' || t=='à' || t=='ả' || t=='ã' || t=='ạ' || t=='ă' || t=='ắ' || t=='ằ' || t=='ẳ' || t=='ẵ' || t=='ặ' || t=='â' || t=='ấ' || t=='ầ' || t=='ẩ' || t=='ẫ' || t=='ậ')
+				t = 'a'
+			if(t=='đ')
+				t = 'd'
+			if(t=='e' || t=='é' || t=='è' || t=='ẻ' || t=='ẽ' || t=='ẹ' || t=='ê' || t=='ế' || t=='ề' || t=='ể' || t=='ễ' || t=='ệ')
+				t = 'e'
+			if(t=='i' || t=='í' || t=='ì' || t=='ỉ' || t=='ĩ' || t=='ị')
+				t = 'i'
+			if(t=='o' || t=='ó' || t=='ò' || t=='ỏ' || t=='õ' || t=='ọ' || t=='ô' || t=='ố' || t=='ồ' || t=='ổ' || t=='ỗ' || t=='ộ' || t=='ơ' || t=='ớ' || t=='ờ' || t=='ở' || t=='ỡ' || t=='ợ')
+				t = 'o'		
+			if(t=='u' || t=='ú' || t=='ù' || t=='ủ' || t=='ũ' || t=='ụ' || t=='ư' || t=='ứ' || t=='ừ' || t=='ử' || t=='ữ' || t=='ự')
+				t = 'u'
+			str += t
+		}
+		command = str
+
+		if(command=="bat den phong ngu" || command=="turn on the lamp of bedroom" || command=="hello")
+			sendCommand(Light_FF_Bed_Ceiling, ON)
+		if(command=="tat den phong ngu" || command=="turn off the lamp of bedroom")
+			sendCommand(Light_FF_Bed_Ceiling, OFF)
+
+		if(command=="bat quat phong ngu" || command=="turn on fan of bedroom")
+			sendCommand(Fan_FF_Bed_Ceiling, ON)
+		if(command=="tat quat phong ngu" || command=="turn off fan of bedroom")
+			sendCommand(Fan_FF_Bed_Ceiling, OFF)
+
+
+		if(command=="bat dieu hoa phong ngu" || command=="turn on the air-conditioner of bedroom")
+			sendCommand(Heating_FF_Bed, ON)
+		if(command=="tat dieu hoa phong ngu" || command=="turn off the air-conditioner of bedroom")
+                        sendCommand(Heating_FF_Bed, OFF)
+		
+
+		if(command=="bat den phong khach")
+			sendCommand(Light_FF_Office_Ceiling,ON)
+		if(command=="tat den phong khach")
+			sendCommand(Light_FF_Office_Ceiling,OFF)
+		
+		if(command=="bat quat phong khach")
+			sendCommand(Fan_FF_Office,ON)
+		if(command=="tat quat phong khach")
+			sendCommand(Fan_FF_Office,OFF)
+	
+		if(command=="tat tat ca" || command=="turn off all")
+		{
+			sendCommand(Fan_FF_Bed_Ceiling, OFF)
+			sendCommand(Light_FF_Bed_Ceiling, OFF)
+			sendCommand(Heating_FF_Bed, OFF)
+			sendCommand(rgbLed,black)
+			sendCommand(Light_FF_Child_Ceiling, OFF)
+			sendCommand(Heating_FF_Child, OFF)
+			sendCommand(Light_FF_Office_Ceiling,OFF)
+			sendCommand(Fan_FF_Office,OFF)
+		}
+		if(command=="bat tat ca" || command=="turn on all")
+		{
+			sendCommand(Fan_FF_Bed_Ceiling, ON)
+			sendCommand(Light_FF_Bed_Ceiling, ON)
+			sendCommand(Heating_FF_Bed, ON)
+			sendCommand(rgbLed,white)
+			sendCommand(Light_FF_Child_Ceiling, ON)
+			sendCommand(Heating_FF_Child, ON)
+			sendCommand(Light_FF_Office_Ceiling,ON)
+			SendCommand(Fan_FF_Office,ON)
+		}
+
+		if(command=="mau do" || command=="color red")
+		{
+			sendCommand(rgbLed,red)
+		}
+
+		if(command=="mau xanh duong" || command=="color blue")
+		{
+			sendCommand(rgbLed,blue)
+		}
+
+		if(command=="mau xanh la" || command=="color green")
+		{
+			sendCommand(rgbLed,green)
+		}
+
+		if(command=="tat den mau" || command=="turn off color led")
+		{
+			sendCommand(rgbLed,black)
+		}
+
+		if(command=="bat den mau" || command=="turn on color led")
+		{
+			sendCommand(rgbLed,white)
+		}
+
+		if(command=="bat den phong sinh hoat")
+		{
+			sendCommand(Light_FF_Child_Ceiling, ON)
+		}
+
+		if(command=="tat den phong sinh hoat")
+		{
+			sendCommand(Light_FF_Child_Ceiling, OFF)
+		}
+
+		if(command=="bat dieu hoa phong sinh hoat")
+		{
+			sendCommand(Heating_FF_Child, ON)
+		}
+
+		if(command=="tat dieu hoa phong sinh hoat")
+		{
+			sendCommand(Heating_FF_Child, OFF)
+		}
+end

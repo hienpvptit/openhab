@@ -1,0 +1,135 @@
+Group gFF           "Tầng 2"   		<firstfloor>
+Group gGF           "Tầng 1"  		<groundfloor>
+Group gC            "Tầng Hầm"      <cellar>
+Group Garden        "Vườn"			<garden>
+Group Weather       "Thời Tiết"     <sun>
+
+Group Status
+Group Shutters
+
+Group GF_Living     "Phòng Khách"   	<video>     (gGF)
+Group GF_Kitchen    "Nhà Bếp"       	<kitchen>   (gGF)
+Group GF_Toilet     "Toilet"        	<bath>      (gGF)
+Group GF_Corridor   "Hành Lang"      	<corridor>  (gGF)
+
+Group FF_Bath       "Nhà Tắm"      		<bath>      (gFF)
+Group FF_Office     "Phòng Sách"        <office>    (gFF)
+Group FF_Child      "Phòng Sinh Hoạt" 	<boy_1>     (gFF)
+Group FF_Bed        "Phòng Ngủ"       	<bedroom>   (gFF)
+Group FF_Corridor   "Hành Lang"      	<corridor>  (gFF)
+
+/* active groups */
+Group:Switch:OR(ON, OFF)        Lights      "All Lights [(%d)]"
+Group:Switch:OR(ON, OFF)        Heating     "No. of Active Heatings [(%d)]"     <heating>
+Group:Number:AVG                Temperature "Avg. Room Temperature [%.1f °C]"   <temperature>   (Status)
+Group:Contact:OR(OPEN, CLOSED)  Windows     "Open windows [(%d)]"               <contact>
+
+/* Lights */
+Dimmer Light_GF_Living_Table        "Đèn Bàn Phòng Khách"   (GF_Living, Lights)     ["Lighting"] {mqtt=">[broker:openhab2/PhongKhach/Den:command:ON:ON],>[broker:openhab2/PhongKhach/Den:command:OFF:OFF]"}
+Switch Light_GF_Corridor_Ceiling    "Đèn Hành Lang"       	(GF_Corridor, Lights)
+Switch Light_GF_Kitchen_Ceiling     "Đèn Nhà Bếp"       	(GF_Kitchen, Lights)
+Switch Light_GF_Kitchen_Table       "Đèn Bàn Nhà Bếp"       (GF_Kitchen, Lights)
+Switch Light_GF_Corridor_Wardrobe   "Đèn Tủ Quần Áo"      	(GF_Corridor, Lights)
+Switch Light_GF_Toilet_Ceiling      "Đèn Toilet"       		(GF_Toilet, Lights)
+Switch Light_GF_Toilet_Mirror       "Đèn Gương"        		(GF_Toilet, Lights)
+
+Switch Light_FF_Bath_Ceiling        "Đèn Nhà Tắm"       	(FF_Bath, Lights)
+Switch Light_FF_Bath_Mirror         "Đèn Gương Nhà Tắm"     (FF_Bath, Lights)
+Switch Light_FF_Corridor_Ceiling    "Đèn Hành lang"     	(FF_Corridor, Lights)
+Switch Light_FF_Office_Ceiling      "Đèn Nhà Sách"       	(FF_Office, Lights)	{mqtt=">[broker:openhab2/PhongSach/Den:command:ON:ON],>[broker:openhab2/PhongSach/Den:command:OFF:OFF]"}
+Switch Fan_FF_Office		    	"Quạt Phòng Sách"		(FF_Office)			{mqtt=">[broker:openhab2/PhongSach/Quat:command:ON:ON],>[broker:openhab2/PhongSach/Quat:command:OFF:OFF]"}
+Switch Light_FF_Child_Ceiling       "Đèn Phòng Sinh Hoạt"   (FF_Child, Lights)	{mqtt=">[broker:openhab2/PhongSinhHoat/Den:command:ON:ON],>[broker:openhab2/PhongSinhHoat/Den:command:OFF:OFF]"}
+Switch Light_FF_Bed_Ceiling         "Đèn Phòng Ngủ"       	(FF_Bed, Lights)	{mqtt=">[broker:openhab2/PhongNgu/Den:command:ON:ON],>[broker:openhab2/PhongNgu/Den:command:OFF:OFF]"}
+Switch Fan_FF_Bed_Ceiling	    	"Quạt Phòng Ngủ"		(FF_Bed)			{mqtt=">[broker:openhab2/PhongNgu/Quat:command:ON:ON],>[broker:openhab2/PhongNgu/Quat:command:OFF:OFF]"}
+Color rgbLed			    		"RGB LED"
+String rgbValue			    		"[%s]"					{mqtt=">[broker:openhab2/rgbLed:command:*:default]"}
+
+Switch Light_C_Corridor_Ceiling     "Đèn Hành Lang"       	(gC, Lights)
+Switch Light_C_Staircase            "Đèn Cầu Thang"     	(gC, Lights)
+Switch Light_C_Washing_Ceiling      "Đèn Phòng Máy"       	(gC, Lights)
+Switch Light_C_Workshop             "Đèn Nhà Kho"      		(gC, Lights)        	["Lighting"]
+
+Switch Light_Garden_Garage          "Đèn Gara"        		(Garden, Lights)      	["Lighting"]
+Switch Light_Garden_Terrace         "Đèn Sân Vườn"    		(Garden, Lights)
+
+/* Heating */
+Switch Heating_GF_Corridor  "Điều Hòa Hành Lang"      	<heating>   (GF_Corridor, Heating)
+Switch Heating_GF_Toilet    "Nóng Lạnh Toilet"        	<heating>   (GF_Toilet, Heating)
+Switch Heating_GF_Living    "Điều Hòa Phòng Khách"    	<heating>   (GF_Living, Heating) 	{mqtt=">[broker:openhab2/PhongKhach/DieuHoa:command:ON:ON],>[broker:openhab2/PhongKhach/DieuHoa:command:OFF:OFF]"}
+Switch Heating_GF_Kitchen   "Điều Hòa Bếp"       		<heating>   (GF_Kitchen, Heating)
+
+Switch Heating_FF_Bath      "Nóng Lạnh Nhà Tắm"         <heating>   (FF_Bath, Heating)
+Switch Heating_FF_Office    "Điều Hòa Nhà Sách"        	<heating>   (FF_Office, Heating)
+Switch Heating_FF_Child     "Điều Hòa Phòng Sinh Hoạt"  <heating>   (FF_Child, Heating)		{mqtt=">[broker:openhab2/PhongSinhHoat/DieuHoa:command:ON:ON],>[broker:openhab2/PhongSinhHoat/DieuHoa:command:OFF:OFF]"}
+Switch Heating_FF_Bed       "Điều Hòa Phòng Ngủ"       	<heating>   (FF_Bed, Heating) 		{mqtt=">[broker:openhab2/PhongNgu/DieuHoa:command:ON:ON],>[broker:openhab2/PhongNgu/DieuHoa:command:OFF:OFF]"}
+
+/* Rollershutters */
+Rollershutter Shutter_GF_Toilet         "Rèm Cửa"       (GF_Toilet, Shutters)
+Rollershutter Shutter_GF_Kitchen        "Rèm Cửa"       (GF_Kitchen, Shutters)
+Rollershutter Shutter_GF_Living         "Rèm Cửa"    	(GF_Living, Shutters)
+
+/*Rollershutter Shutter_FF_Bed          "Rèm Cửa"      	(FF_Bed, Shutters)*/
+Rollershutter Shutter_FF_Bath           "Rèm Cửa"       (FF_Bath, Shutters)
+Rollershutter Shutter_FF_Office_Window  "Rèm Cửa Sổ" 	(FF_Office, Shutters)
+Rollershutter Shutter_FF_Office_Door    "Cửa Ra Vào"   	(FF_Office, Shutters)
+
+Switch Shutter_all
+
+/* Indoor Temperatures */
+Number Temperature_GF_Corridor  "Nhiệt Độ Hành Lang [%.1f °C]" 		<temperature>   (Temperature, GF_Corridor) 	{mqtt="<[broker:openhab2/PhongNgu/NhietDo:state:default]"}
+Number Temperature_GF_Toilet    "Nhiệt Độ Toilet [%.1f °C]" 		<temperature>   (Temperature, GF_Toilet) 	{mqtt="<[broker:openhab2/PhongNgu/NhietDo:state:default]"}
+Number Temperature_GF_Living    "Nhiệt Độ Phòng Khách [%.1f °C]" 	<temperature>  	(Temperature, GF_Living) 	{mqtt="<[broker:openhab2/PhongNgu/NhietDo:state:default]"}
+Number Temperature_GF_Kitchen   "Nhiệt Độ Bếp [%.1f °C]" 			<temperature>   (Temperature, GF_Kitchen, Thermostat) ["CurrentTemperature"] {mqtt="<[broker:openhab2/PhongKhach/NhietDo:state:default]"}
+Number Temperature_FF_Bath      "Nhiệt Độ Nhà Tắm [%.1f °C]" 		<temperature>   (Temperature, FF_Bath) 		{mqtt="<[broker:openhab2/PhongNgu/NhietDo:state:default]"}
+Number Temperature_FF_Office    "Nhiệt Độ Nhà Sách [%.1f °C]"	 	<temperature>  	(Temperature, FF_Office) 	{mqtt="<[broker:openhab2/PhongNgu/NhietDo:state:default]"}
+Number Temperature_FF_Child     "Nhiệt Độ Nhà Trẻ [%.1f °C]" 		<temperature>   (Temperature, FF_Child) 	{mqtt="<[broker:openhab2/PhongNgu/NhietDo:state:default]"}
+Number Temperature_FF_Bed       "Nhiệt Độ Phòng Ngủ [%.1f °C]" 		<temperature>   (Temperature, FF_Bed) 		{mqtt="<[broker:openhab2/PhongNgu/NhietDo:state:default]"}
+
+
+/* Windows */
+Contact Window_GF_Frontdoor     "Cửa [MAP(en.map):%s]"        	(GF_Corridor, Windows)
+Contact Window_GF_Kitchen       "Cửa [MAP(en.map):%s]"          (GF_Kitchen, Windows)
+Contact Window_GF_Living        "Cửa [MAP(en.map):%s]"     	(GF_Living, Windows)
+Contact Window_GF_Toilet        "Cửa [MAP(en.map):%s]"          (GF_Toilet, Windows)
+
+Contact Window_FF_Bath          "Cửa [MAP(en.map):%s]"          (FF_Bath, Windows)
+Contact Window_FF_Bed           "Cửa [MAP(en.map):%s]"          (FF_Bed, Windows)
+Contact Window_FF_Office_Window "Cửa [MAP(en.map):%s]"    	(FF_Office, Windows)
+Contact Window_FF_Office_Door   "Cửa [MAP(en.map):%s]"     	(FF_Office, Windows)
+
+Contact Garage_Door             "Cửa [MAP(en.map):%s]"      	(Garden, Windows)
+
+Group Weather_Chart
+Number Weather_Temperature      "Nhiệt Độ [%.1f °C]" 		<temperature> (Weather, Weather_Chart) {mqtt="<[broker:openhab2/PhongNgu/NhietDo:state:default]"}
+Number Weather_Temp_Max         "Cao Nhất [%.1f °C]"     	<temperature> (Weather, Weather_Chart) 
+Number Weather_Temp_Min         "Thấp Nhất [%.1f °C]"      	<temperature> (Weather, Weather_Chart) 
+Number Weather_Chart_Period     "Biểu Đồ"
+DateTime Weather_LastUpdate     "Cập Nhật Lần Cuối [%1$ta %1$tR]"     <clock>
+Number Sun_Elevation            "Sun Elevation"                 <sun>       { channel = "astro:sun:home:position#elevation" }
+Number Sun_Azimuth              "Sun Azimuth"                   <sun>       { channel = "astro:sun:home:position#azimuth" }
+DateTime Sunrise_Time           "Sunrise [%1$tH:%1$tM]"         <sunrise>   { channel = "astro:sun:home:rise#start" }
+DateTime Sunset_Time            "Sunset [%1$tH:%1$tM]"          <sunset>    { channel = "astro:sun:home:set#start" }
+Number Moon_Elevation           "Moon Elevation"                <moon>      { channel = "astro:moon:home:position#elevation" }
+Number Moon_Azimuth             "Moon Azimuth"                  <moon>      { channel = "astro:moon:home:position#azimuth" }
+String Moon_Phase               "Moon Phase"                    <moon>      { channel = "astro:moon:home:phase#name" }
+
+/* Demo items */
+DateTime CurrentDate            "Ngày [%1$tA, %1$td.%1$tm.%1$tY]"   <calendar>  { channel="ntp:ntp:demo:dateTime" }
+Switch DemoSwitch               "Công Tắc"
+Dimmer DimmedLight              "Đèn [%d %%]"        	<slider>
+Color  RGBLight                 "RGB Light"             <slider>
+Rollershutter DemoShutter       "Roller Shutter"
+Dimmer DemoBlinds               "Blinds [%d %%]"        <rollershutter>
+Number Scene_General            "Scene"                 <sofa>
+Number Radio_Station            "Radio"                 <network>
+Dimmer Volume                   "Âm Lượng [%.1f %%]"
+Location DemoLocation           "Brandenburg Gate Berlin"
+Number Wifi_Level               "Wifi Level [%d/4]"     <signal>        (FF_Office)
+String ImageURL                 "Image URL [%s]"
+
+Group Thermostat                "Thermostat"            <temperature>                    ["Thermostat"]
+Number Temperature_Setpoint     "Temperature [%.1f °C]" <temperature>    (Thermostat)    ["TargetTemperature"]
+String Thermostat_Mode          "Thermostat Mode [%s]"  <temperature>    (Thermostat)    ["homekit:HeatingCoolingMode"]
+
+// vim: syntax=Xtend
+String VoiceCommand

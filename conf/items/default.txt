@@ -1,0 +1,83 @@
+Group	TangHam				"Tầng Hầm"			<cellar>
+Group	Tang_1				"Tầng 1"			<groundfloor>
+Group	Tang_2				"Tầng 2"			<firstfloor>
+Group	Tang_3				"Tầng 3"			<attic>
+Group	Vuon				"Vườn"				<garden>
+Group	ThoiTiet			"Nhiệt Độ"			<sun>
+
+Group 	Tang_1_PhongKhach	"Phòng Khách"		<video>			(Tang_1)
+Group	Tang_1_NhaBep		"Nhà Bếp"			<kitchen>		(Tang_1)
+Group	Tang_1_NhaVeSinh	"Nhà Vệ Sinh"		<bath>			(Tang_1)
+
+Group 	Tang_2_NhaTam		"Nhà Tắm"			<bath>			(Tang_2)
+Group	Tang_2_Ngu_1		"Phòng Ngủ 1"		<bedroom>		(Tang_2)
+Group	Tang_2_Ngu_2		"Phòng Ngủ 2"		<bedroom>		(Tang_2)
+
+Group	Tang_3_Ngu_1		"Phòng Ngủ 1"		<bedroom>		(Tang_3)
+Group	Tang_3_Ngu_2		"Phòng Ngủ 2"		<bedroom>		(Tang_3)
+
+Group:Switch:OR(ON, OFF)        Lights      "All Lights [(%d)]"
+
+/* Vuon */
+Switch				A_Den_Vuon					"Đèn Vườn"							<light>					(Vuon)
+Switch				B_May_Bom					"Máy bơm nước"						<switch>				(Vuon)
+Number 				C_Nhiet_Do_Vuon				"Nhiệt độ vườn [%.1f °C]"			<temperature>			(Vuon, ThoiTiet)					{mqtt="<[broker:openhab2/Vuon/NhietDo:state:default]"}
+
+/* Tang Ham */
+Switch 				A_Den_Cau_Thang				"Đèn Cầu thang"						<light>					(Tang_Ham, Lights)
+Switch 				B_Den_Tang_Ham				"Đèn Tầng Hầm"						<light>					(Tang_Ham, Lights)
+Switch 				C_Chong_Trom				"Chống Trộm"						<switch>				(Tang_Ham)
+Rollershutter		D_Cua_Cuon					"Cửa Cuốn"							<rollershutter>			(Tang_Ham)
+Number 				E_Nhiet_Do_Tang_Ham			"Nhiệt độ tầng hầm [%.1f °C]"		<temperature>			(Tang_Ham, ThoiTiet)				{mqtt="<[broker:openhab2/TangHam/NhietDo:state:default]"}
+
+/* Tang 1*/
+/* Phong Khach Tang 1*/
+Switch 				A_Den_Phong_Khach_1			"Đèn 1"								<light>					(Tang_1_PhongKhach)		
+Switch				B_Den_Phong_Khach_2			"Đèn 2"								<light>					(Tang_1_PhongKhach)
+Switch				C_Den_Phong_Khach_3			"Đèn 3"								<light>					(Tang_1_PhongKhach)
+Switch				D_Dieu_Hoa_Phong_Khach		"Điều hòa"							<switch>				(Tang_1_PhongKhach)
+Number				E_Nhiet_Do_Phong_Khach		"Nhiệt độ phòng khách [%.1f °C]" 	<temperature>			(Tang_1_PhongKhach, ThoiTiet)		{mqtt="<[broker:openhab2/PhongKhach/NhietDo:state:default]"}
+
+/* Bep Tang 1 */
+Switch				A_Den_Bep					"Đèn"								<light>					(Tang_1_NhaBep)
+Switch				B_May_Hut_Mui				"Máy Hút Mùi"						<switch>				(Tang_1_NhaBep)
+
+/* Nha Ve Sinh Tang 1*/
+Switch				A_Den_Nha_Ve_Sinh			"Đèn"								<light>					(Tang_1_NhaVeSinh)
+Switch				B_Quat_Thong_Gio_NVS_T1		"Quạt thông gió"					<switch>				(Tang_1_NhaVeSinh)			
+
+
+/* Tang 2 */
+/* Nha Tam */
+Switch				A_Den_Nha_Tam				"Đèn"								<light>					(Tang_2_NhaTam)
+Switch				B_May_Nong_Lanh				"Bình nóng lạnh"					<switch>				(Tang_2_NhaTam)
+Switch				C_Quat_Thong_Gio_NhaTam_T2	"Quạt thông gió"					<switch>				(Tang_2_NhaTam)
+
+/* Phong Ngu 1 */
+Switch				A_Den_PhongNgu1_T2			"Đèn"								<light>					(Tang_2_Ngu_1)
+Dimmer				B_DenNgu_PhongNgu1_T2		"Đèn ngủ"							<slider>				(Tang_2_Ngu_1)
+Switch				C_Dieu_Hoa_PhongNgu1_T2		"Điều hòa"							<switch>				(Tang_2_Ngu_1)
+
+/* Phong Ngu 2 */
+Switch				A_Den_PhongNgu2_T2			"Đèn"								<light>					(Tang_2_Ngu_2)
+Dimmer				B_DenNgu_PhongNgu2_T2		"Đèn ngủ"							<slider>				(Tang_2_Ngu_2)
+Switch				C_Dieu_Hoa_PhongNgu2_T2		"Điều hòa"							<switch>				(Tang_2_Ngu_2)
+
+/* Tang 3 */
+/* Phong Ngu 1 */
+Switch				A_Den_PhongNgu1_T3			"Đèn"								<light>					(Tang_3_Ngu_1)
+Dimmer				B_DenNgu_PhongNgu1_T3		"Đèn ngủ"							<slider>				(Tang_3_Ngu_1)
+Switch				C_Dieu_Hoa_PhongNgu1_T3		"Điều hòa"							<switch>				(Tang_3_Ngu_1)
+
+/* Phong Ngu 2 */
+Switch				A_Den_PhongNgu2_T3			"Đèn"								<light>					(Tang_3_Ngu_2)
+Dimmer				B_DenNgu_PhongNgu2_T3		"Đèn ngủ"							<slider>				(Tang_3_Ngu_2)
+Switch				C_Dieu_Hoa_PhongNgu2_T3		"Điều hòa"							<switch>				(Tang_3_Ngu_2)
+
+/* Nhiet do */
+Number Nhiet_Do_Ngoai_Troi      "Nhiệt độ ngoài trời [%.1f °C]" 	<temperature>	(ThoiTiet) 	{ channel="yahooweather:weather:berlin:temperature" }
+
+/* Date */
+DateTime Date            "Date [%1$tA, %1$td.%1$tm.%1$tY]"   <calendar>  { channel="ntp:ntp:demo:dateTime" }
+
+String VoiceControl

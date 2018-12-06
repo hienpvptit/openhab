@@ -1,0 +1,19 @@
+sitemap default label="My Home"
+{
+	Frame label="Điều Khiển"
+	{
+		Group item=Vuon label="Vườn" icon="garden"
+		Group item=Tang_Ham label="Tầng Hầm" icon="cellar"
+		Group item=Tang_1 label="Tầng 1" icon="groundfloor"
+		Group item=Tang_2 label="Tầng 2" icon="firstfloor"	
+		Group item=Tang_3 label="Tầng 3" icon="attic"	
+	}
+	Frame{
+		Text item=Date valuecolor=["blue"]
+	}
+	Frame label="Home Infomation"
+	{
+		Group item=ThoiTiet
+	}
+}
+  

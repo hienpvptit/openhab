@@ -1,0 +1,24 @@
+import org.openhab.model.script.actions.*
+import org.openhab.core.library.types.*
+import java.util.*
+import java.awt.Color
+
+var String hsbValue
+var Number  H
+var Number  S
+var Number  L
+var String[] parts
+
+rule "colorPicker"
+when 
+	Item rgbLed changed
+then
+	hsbValue = rgbLed.state.toString()
+	parts =  hsbValue.split(",")
+	H = Math.round(Float.parseFloat(parts.get(0)))
+	S = Math.round(Float.parseFloat(parts.get(1)))
+	L = Math.round(Float.parseFloat(parts.get(2)))
+	sendCommand(rgbValue, H + "," + S + "," + L)
+	//sendCommand(testString, hsbValue)
+
+end
